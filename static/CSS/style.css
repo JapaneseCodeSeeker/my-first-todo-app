@@ -1,0 +1,14 @@
+/* static/css/style.css */
+
+body {
+    /* CSSファイルから画像を指す場合、url() 内のパスはCSSファイルからの相対パスになります。*/
+    background-image: url("../images/background.jpg"); /*CSSファイルがある場所から一つ上のディレクトリにあるimagesフォルダ内のbackground.jpgという画像ファイルを読み込み */
+    background-size: cover; /*背景画像を、ページの表示領域全体を覆うように拡大・縮小します。*/
+    background-repeat: no-repeat; /*背景画像を繰り返し表示しないように指定*/
+    background-position: center center;/*背景画像の位置を、水平方向・垂直方向ともに中央に配置*/
+    min-height: 100vh;/*要素の最小の高さをビューポート（画面）の高さの100%に設定*/
+    margin: 0;/*要素の外側の余白をゼロに設定*/
+    display: flex; /*フレキシブルボックスコンテナとして定義 コンテナのサイズに合わせて拡大・縮小させたり、配置を調整したりする*/
+    flex-direction: column;/*Flexboxコンテナ内の子要素を、縦一列（上から下）に並べるように指定*/
+}
+/* 共通CSSスタイル */

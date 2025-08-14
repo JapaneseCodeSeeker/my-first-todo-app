@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>名前付きメモアプリ</title>
+</head>
+<body>
+
+<!-- templates/index.html -->
+{% extends "base2.html" %}
+{% block title %}メモ一覧{% endblock %}
+{% block content %}
+
+<h1>メモを追加</h1>
+
+<form method="POST" autocomplete="off">
+        名前: <input type="text" name="name" required>
+        メモ: <input type="text" name="memo" required>
+        優先度:
+        <select name="priority">
+            <option value="">---未設定---</option>
+            <option value="高">高</option>
+            <option value="中">中</option>
+            <option value="低">低</option>
+        </select>
+        <button type="submit">保存</button>
+</form>
+
+<h2>保存されたメモ</h2>
+<p>保存されたメモ: {{ notes|length }} 件</p>
+<ul>
+         {% for note in notes %}
+
+            <li>
+                <strong>{{ note.name }}</strong>: {{ note.memo }}
+                {% if note.priority %}
+                    <span>（優先度: {{ note.priority }}）</span>
+                {% endif %}
+                <small>{{note.created_at}}</small>
+                <a href="{{ url_for('edit', note_id=note.id) }}">[編集]</a>
+                <a href="{{ url_for('delete', note_id=note.id) }}">[削除]</a>
+
+            </li>
+        {% endfor %}
+
+</ul>
+{% endblock %}
+</body>
+</html>

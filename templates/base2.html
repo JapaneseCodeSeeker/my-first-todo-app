@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <!--ウェブページの表示幅をデバイスの画面幅に合わせる-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--Jinja2のようなテンプレートエンジンの構文:複数のHTMLファイルのタイトル名でわかりやすく識別--> 
+    <title>{% block title %}My App{% endblock %}</title>
+    <!--外部のCSSファイルを読み込む要素-->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    {% block head %}{% endblock %}
+    <style>
+        body{
+            background-image: url("{{ url_for('static', filename='images/background.jpg') }}");
+            background-size: cover; /* 画面全体に画像を拡大縮小して表示 */
+            background-repeat: no-repeat; /* 画像の繰り返しを防ぐ */
+            background-position: center center; /* 画像を中央に配置 */
+            min-height: 100vh; /* bodyが画面全体を占めるようにする */
+            margin: 0; /* bodyのデフォルトマージンを削除 */
+            display: flex; /*フレキシブルボックスコンテナとして定義 コンテナのサイズに合わせて拡大・縮小させたり、配置を調整したりする*/
+            flex-direction: column; /*Flexboxコンテナ内のアイテム（子要素）を並べる方向:上から下へ、縦一列 */
+            font-family: sans-serif; /*テキストのフォントを指定:ユーザーの環境で利用可能なゴシック体の中から、ブラウザが最適なフォントを自動的に選択して表示します。*/
+
+        }
+        h1, h2{
+            color: #2c3e50;
+        }
+        form{
+            margin-bottom: 20px; /*formの外側下部に余白を設定を20ピクセルに設定 */
+        }
+        input, button {
+            padding: 5px;
+            margin: 5px;
+        }
+        ul{ /*（順序なしリスト）**タグに適用されるスタイル*/
+            list-style-type: none; /*リストの先頭に表示される記号（点や丸など）を非表示にします*/
+            padding: 0; /*リストの内側の余白をゼロに設定*/
+        }
+        li{
+            background: #f0f0f0; /*リスト項目の背景色を薄いグレー（#f0f0f0）に設定 */
+            margin-bottom: 5px; /*各リスト項目の下側に5ピクセルの余白を空けます リスト項目同士がくっつかず、見やすくなります。*/
+            padding: 10px; /*リスト項目の内側に10ピクセルの余白を設定 これにより、項目内の文字が背景の端にぴったりくっつかず、ゆったりとした見た目になります。*/
+            border-radius: 5px; /*リスト項目の角を丸くします。*/
+        }
+        .flash{
+            color: green;
+            font-weight: bold;
+        }
+    </style>
+
+</head>
+<body>
+    <h1>メモアプリ</h1>
+    <!-- ✅ フラッシュメッセージ表示 -->
+     <!--get_flashed_messages()関数で、サーバー側から送られてきたメッセージを取得し、messagesという変数に格納します。-->
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <ul class="flash">
+          {% for message in messages %}
+            <li>{{ message }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}   
+
+    {% block content %}
+      <!-- 各ページの中身が入る -->
+    {% endblock %}
+</body>
+</html>

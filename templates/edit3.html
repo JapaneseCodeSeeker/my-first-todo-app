@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>メモの編集</title>
+    {% extends "base2.html" %}
+    {% block title %}メモ編集{% endblock %}
+</head>
+<body>
+    {% block content %}
+    <h1>メモの編集</h1>
+    <form method="POST">
+    
+        <textarea name="name" rows="1" cols="10">{{note.name}}</textarea><br>
+        <textarea name="memo" rows="4" cols="40">{{note.memo}}</textarea><br>
+
+        <label>優先度</label><br>
+        <select name="priority">
+            <option value="">---未設定---</option>
+            <option value="高" {% if note.priority == "高" %}selected{% endif %}>高</option>
+            <option value="中" {% if note.priority == "中" %}selected{% endif %}>中</option>
+            <option value="低" {% if note.priority == "低" %}selected{% endif %}>低</option>
+        </select><br><br>
+        
+        <button type="submit">更新</button>
+    </form>
+    <a href="{{url_for('index')}}">戻る</a>
+    {% endblock %}
+</body>
+</html>
